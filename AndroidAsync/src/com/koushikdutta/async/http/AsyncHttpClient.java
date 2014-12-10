@@ -295,6 +295,9 @@ public class AsyncHttpClient {
         if (request.getBody() != null) {
             if (request.getHeaders().get("Content-Type") == null)
                 request.getHeaders().set("Content-Type", request.getBody().getContentType());
+        } else {
+          request.getHeaders().set("Content-Type", "application/x-www-form-urlencoded");
+          request.getHeaders().set("Content-Length", "0");
         }
 
         final Exception unsupportedURI;

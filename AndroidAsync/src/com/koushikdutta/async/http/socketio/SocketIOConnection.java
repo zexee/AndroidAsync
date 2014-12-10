@@ -2,6 +2,7 @@ package com.koushikdutta.async.http.socketio;
 
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.koushikdutta.async.callback.CompletedCallback;
 import com.koushikdutta.async.future.Cancellable;
@@ -111,6 +112,9 @@ class SocketIOConnection {
             @Override
             protected void transform(String result) throws Exception {
                 String[] parts = result.split(":");
+                if (parts.length < 4) {
+                  Log.d("fdsa", "SOCKETIO_RAW " + result);
+                }
                 final String sessionId = parts[0];
                 if (!"".equals(parts[1]))
                     heartbeat = Integer.parseInt(parts[1]) / 2 * 1000;

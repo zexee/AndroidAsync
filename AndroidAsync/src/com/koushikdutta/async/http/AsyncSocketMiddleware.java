@@ -1,7 +1,6 @@
 package com.koushikdutta.async.http;
 
 import android.net.Uri;
-
 import com.koushikdutta.async.ArrayDeque;
 import com.koushikdutta.async.AsyncSocket;
 import com.koushikdutta.async.ByteBufferList;
@@ -358,7 +357,9 @@ public class AsyncSocketMiddleware extends SimpleMiddleware {
                 data.socket.close();
                 return;
             }
-            if (!HttpUtil.isKeepAlive(data.response.protocol(), data.response.headers())
+            // Force reconnection for websocket. HTTP over 3G go through proxy for some providers, which cannot be upgrade to websocket.
+            if (true
+                || !HttpUtil.isKeepAlive(data.response.protocol(), data.response.headers())
                 || !HttpUtil.isKeepAlive(Protocol.HTTP_1_1, data.request.getHeaders())) {
                 data.request.logv("closing out socket (not keep alive)");
                 data.socket.close();
