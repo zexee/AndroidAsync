@@ -303,14 +303,17 @@ public class AsyncHttpRequest {
 
     String proxyHost;
     int proxyPort = -1;
+    Boolean disableProxy = false;
     public void enableProxy(String host, int port) {
         proxyHost = host;
         proxyPort = port;
+        disableProxy = false;
     }
 
     public void disableProxy() {
         proxyHost = null;
         proxyPort = -1;
+        disableProxy = true;
     }
 
     public String getProxyHost() {

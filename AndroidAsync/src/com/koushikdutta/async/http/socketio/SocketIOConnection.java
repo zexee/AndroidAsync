@@ -131,7 +131,7 @@ class SocketIOConnection {
                             .appendPath("websocket").appendPath(sessionId)
                             .build().toString();
 
-                    httpClient.websocket(sessionUrl, null, null)
+                    httpClient.websocket(sessionUrl, request, null, null)
                     .setCallback(new FutureCallback<WebSocket>() {
                         @Override
                         public void onCompleted(Exception e, WebSocket result) {

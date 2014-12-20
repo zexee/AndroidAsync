@@ -78,6 +78,9 @@ public class AsyncHttpClient {
 
     @SuppressLint("NewApi")
     private static void setupAndroidProxy(AsyncHttpRequest request) {
+        if (request.disableProxy)
+          return;
+      
         // using a explicit proxy?
         if (request.proxyHost != null)
             return;
@@ -707,9 +710,14 @@ public class AsyncHttpClient {
         return ret;
     }
 
-    public Future<WebSocket> websocket(String uri, String protocol, final WebSocketConnectCallback callback) {
+    public Future<WebSocket> websocket(String uri, AsyncHttpRequest request, String protocol, final WebSocketConnectCallback callback) {
 //        assert callback != null;
         final AsyncHttpGet get = new AsyncHttpGet(uri.replace("ws://", "http://").replace("wss://", "https://"));
+        get.proxyHost = request.proxyHost;
+        get.proxyPort = request.proxyPort;
+        get.disableProxy = request.disableProxy;
+        get.setLogging("fdsa", Log.VERBOSE);
+        get.logd(get.getUri().toString());
         return websocket(get, protocol, callback);
     }
 

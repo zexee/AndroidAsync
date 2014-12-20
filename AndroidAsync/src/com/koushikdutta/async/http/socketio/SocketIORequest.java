@@ -2,9 +2,10 @@ package com.koushikdutta.async.http.socketio;
 
 import android.net.Uri;
 
+import com.koushikdutta.async.http.AsyncHttpGet;
 import com.koushikdutta.async.http.AsyncHttpPost;
 
-public class SocketIORequest extends AsyncHttpPost {
+public class SocketIORequest extends AsyncHttpGet {
     public SocketIORequest(String uri) {
         this(uri, "");
     }
